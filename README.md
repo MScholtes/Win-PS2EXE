@@ -9,7 +9,7 @@ With [PS2EXE.ps1](https://gallery.technet.microsoft.com/PS2EXE-GUI-Convert-e7cb6
 
 ### Features and restrictions:
 * **Win-PS2EXE** does not support all parameters of **PS2EXE.ps1**
-* WPF application that compiles without Visual Studio or MSBuild on every supported Windows
+* WPF application that compiles without Visual Studio or MSBuild on every Windows with .Net 3.5x or .Net 4.x
 * only one source file
 * drag'n'drop for file names
 * separate .Net 4.x and .Net 3.5x versions (since .Net 3.5x do not allow uncompiled event handlers)
