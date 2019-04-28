@@ -1,5 +1,5 @@
 # Win-PS2EXE
-Graphical frontend to PS1-to-EXE-compiler PS2EXE.ps1
+Graphical front end to PS1-to-EXE-compiler PS2EXE.ps1
 
 #### Author: Markus Scholtes
 #### Version: 1.0.0.0
