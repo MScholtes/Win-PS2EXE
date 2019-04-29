@@ -14,17 +14,17 @@ With [PS2EXE.ps1](https://gallery.technet.microsoft.com/PS2EXE-GUI-Convert-e7cb6
 * WPF application that compiles without Visual Studio or MSBuild on every Windows with .Net 3.5x or .Net 4.x
 * only one source file
 * drag'n'drop for file names
-* separate .Net 4.x and .Net 3.5x versions (since .Net 3.5x do not allow uncompiled event handlers)
+* separate .Net 4.x and .Net 3.5x versions (since .Net 3.5x do not allow uncompiled event handlers in XAML)
 
 ### Screenshot:
 ![Screenshot](Screenshot.jpg)
 
 ### How to compile:
-Run **Compile.bat** (in a .Net 3.5x environment use the version in folder DotNet3.5).
+Run **Compile.bat** (in a .Net 3.5x environment use the version in folder *DotNet3.5*).
 
 ### How to use:
 Ensure **PS2EXE.ps1** is in the same directory as **Win-PS2EXE.exe**.
 
-Start **Win-PS2EXE.exe** and fill in the desired fields (only source file is mandatory).
+Start **Win-PS2EXE.exe** and fill in the desired fields (only *Source file* is mandatory).
 
-Click **Compile**, a powershell window open and your powershell script will be compile to an executable.
+Click **Compile**, a powershell window opens and your powershell script will be compiled to an executable.
