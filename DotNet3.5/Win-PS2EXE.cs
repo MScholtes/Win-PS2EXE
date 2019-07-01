@@ -1,4 +1,4 @@
-// Win-PS2EXE v1.0.0.0
+// Win-PS2EXE v1.0.0.1
 // Front end to Powershell-Script-to-EXE-Compiler PS2EXE.ps1: https://gallery.technet.microsoft.com/PS2EXE-GUI-Convert-e7cb69d5
 // Markus Scholtes, 2019
 //
@@ -28,8 +28,8 @@ using System.Reflection;
 [assembly:AssemblyCopyright("© Markus Scholtes 2019")]
 [assembly:AssemblyTrademark("")]
 [assembly:AssemblyCulture("")]
-[assembly:AssemblyVersion("1.0.0.0")]
-[assembly:AssemblyFileVersion("1.0.0.0")]
+[assembly:AssemblyVersion("1.0.0.1")]
+[assembly:AssemblyFileVersion("1.0.0.1")]
 
 namespace WPFApplication
 {
@@ -195,15 +195,29 @@ namespace WPFApplication
 				}
 
 				// read state of CheckBox control
-				CheckBox objCheckBox2 = (CheckBox)objWindow.FindName("requireAdmin");
+				CheckBox objCheckBox2 = (CheckBox)objWindow.FindName("noOutput");
 				if (objCheckBox2.IsChecked.Value)
+				{
+					arguments += " -noOutput";
+				}
+
+				// read state of CheckBox control
+				CheckBox objCheckBox3 = (CheckBox)objWindow.FindName("noError");
+				if (objCheckBox3.IsChecked.Value)
+				{
+					arguments += " -noError";
+				}
+
+				// read state of CheckBox control
+				CheckBox objCheckBox4 = (CheckBox)objWindow.FindName("requireAdmin");
+				if (objCheckBox4.IsChecked.Value)
 				{
 					arguments += " -requireAdmin";
 				}
 
 				// read state of CheckBox control
-				CheckBox objCheckBox3 = (CheckBox)objWindow.FindName("noConfigfile");
-				if (objCheckBox3.IsChecked.Value)
+				CheckBox objCheckBox5 = (CheckBox)objWindow.FindName("noConfigfile");
+				if (objCheckBox5.IsChecked.Value)
 				{
 					arguments += " -noConfigfile";
 				}
@@ -361,7 +375,7 @@ namespace WPFApplication
 	xmlns:local=""clr-namespace:WPFApplication;assembly=***ASSEMBLY***""
 	xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
 	x:Name=""Window"" Title=""Win-PS2EXE"" WindowStartupLocation=""CenterScreen""
-	Background=""#FFE8E8E8""  Width=""504"" Height=""356"" ShowInTaskbar=""True"">
+	Background=""#FFE8E8E8""  Width=""504"" Height=""372"" ShowInTaskbar=""True"">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width=""auto"" />
@@ -369,6 +383,7 @@ namespace WPFApplication
 			<ColumnDefinition Width=""auto"" />
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
+			<RowDefinition Height=""auto"" />
 			<RowDefinition Height=""auto"" />
 			<RowDefinition Height=""auto"" />
 			<RowDefinition Height=""auto"" />
@@ -410,11 +425,16 @@ namespace WPFApplication
 
 		<CheckBox x:Name=""noConsole"" IsChecked=""True"" Margin=""0,10,0,0"" ToolTip=""Generate a Windows application instead of a console application"" Grid.Row=""6"" Grid.Column=""1"">Compile a graphic windows program (parameter -noConsole)</CheckBox>
 
-		<CheckBox x:Name=""requireAdmin"" IsChecked=""False"" ToolTip=""Request administrative rights (UAC) at runtime if not already present"" Grid.Row=""7"" Grid.Column=""1"">Require administrator rights at runtime (parameter -requireAdmin)</CheckBox>
+		<WrapPanel Grid.Row=""7"" Grid.Column=""1"" >
+			<CheckBox x:Name=""noOutput"" IsChecked=""False"" ToolTip=""Supress any output including verbose and informational output"" >Suppress output (-noOutput)</CheckBox>
+			<CheckBox x:Name=""noError"" IsChecked=""False"" Margin=""10,0,0,0"" ToolTip=""Supress any error message including warning and debug output"" >Suppress error output (-noError)</CheckBox>
+		</WrapPanel>
 
-		<CheckBox x:Name=""noConfigfile"" IsChecked=""True"" ToolTip=""Disable creation of OUTPUTFILE.exe.config"" Grid.Row=""8"" Grid.Column=""1"">Generate no config file (parameter -noConfigfile)</CheckBox>
+		<CheckBox x:Name=""requireAdmin"" IsChecked=""False"" ToolTip=""Request administrative rights (UAC) at runtime if not already present"" Grid.Row=""8"" Grid.Column=""1"">Require administrator rights at runtime (parameter -requireAdmin)</CheckBox>
 
-		<WrapPanel Grid.Row=""9"" Grid.Column=""1"" >
+		<CheckBox x:Name=""noConfigfile"" IsChecked=""True"" ToolTip=""Disable creation of OUTPUTFILE.exe.config"" Grid.Row=""9"" Grid.Column=""1"">Generate no config file (parameter -noConfigfile)</CheckBox>
+
+		<WrapPanel Grid.Row=""10"" Grid.Column=""1"" >
 			<Label>Thread Apartment State: </Label>
 			<RadioButton x:Name=""STA"" VerticalAlignment=""Center"" IsChecked=""True"" GroupName=""ThreadAppartment"" Content=""STA"" ToolTip=""'Single Thread Apartment' mode (recommended)"" />
 			<RadioButton x:Name=""MTA"" Margin=""5,0,0,0"" VerticalAlignment=""Center"" IsChecked=""False"" GroupName=""ThreadAppartment"" Content=""MTA"" ToolTip=""'Multi Thread Apartment' mode""/>
@@ -426,7 +446,7 @@ namespace WPFApplication
 			</ComboBox>
 		</WrapPanel>
 
-		<WrapPanel Margin=""0,5,0,0"" HorizontalAlignment=""Right"" Grid.Row=""10"" Grid.Column=""1"" >
+		<WrapPanel Margin=""0,5,0,0"" HorizontalAlignment=""Right"" Grid.Row=""11"" Grid.Column=""1"" >
 			<Button x:Name=""Compile"" Background=""#FFD0D0D0"" Height=""22"" Width=""72"" Margin=""10"" Content=""Compile"" ToolTip=""Compile source file to an executable"" IsDefault=""True"" />
 			<Button x:Name=""Cancel"" Background=""#FFD0D0D0"" Height=""22"" Width=""72"" Margin=""10"" Content=""Cancel"" ToolTip=""End program without action"" IsCancel=""True"" />
 		</WrapPanel>
