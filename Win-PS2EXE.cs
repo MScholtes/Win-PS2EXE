@@ -27,8 +27,8 @@ using System.Reflection;
 [assembly:AssemblyCopyright("© Markus Scholtes 2019")]
 [assembly:AssemblyTrademark("")]
 [assembly:AssemblyCulture("")]
-[assembly:AssemblyVersion("1.0.0.1")]
-[assembly:AssemblyFileVersion("1.0.0.1")]
+[assembly:AssemblyVersion("1.0.0.2")]
+[assembly:AssemblyFileVersion("1.0.0.2")]
 
 namespace WPFApplication
 {
@@ -168,10 +168,10 @@ namespace WPFApplication
 				}
 
 				// read state of CheckBox control
-				CheckBox objCheckBox5 = (CheckBox)objWindow.FindName("noConfigfile");
+				CheckBox objCheckBox5 = (CheckBox)objWindow.FindName("configFile");
 				if (objCheckBox5.IsChecked.Value)
 				{
-					arguments += " -noConfigfile";
+					arguments += " -configFile";
 				}
 
 				// read state of RadioButton control
@@ -389,7 +389,7 @@ namespace WPFApplication
 
 		<CheckBox x:Name=""requireAdmin"" IsChecked=""False"" ToolTip=""Request administrative rights (UAC) at runtime if not already present"" Grid.Row=""8"" Grid.Column=""1"">Require administrator rights at runtime (parameter -requireAdmin)</CheckBox>
 
-		<CheckBox x:Name=""noConfigfile"" IsChecked=""True"" ToolTip=""Disable creation of OUTPUTFILE.exe.config"" Grid.Row=""9"" Grid.Column=""1"">Generate no config file (parameter -noConfigfile)</CheckBox>
+		<CheckBox x:Name=""configFile"" IsChecked=""False"" ToolTip=""Enable creation of OUTPUTFILE.exe.config"" Grid.Row=""9"" Grid.Column=""1"">Generate config file (parameter -configFile)</CheckBox>
 
 		<WrapPanel Grid.Row=""10"" Grid.Column=""1"" >
 			<Label>Thread Apartment State: </Label>
