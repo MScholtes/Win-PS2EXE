@@ -30,7 +30,7 @@ Start **Win-PS2EXE.exe** and fill in the desired fields (only *Source file* is m
 Click **Compile**, a powershell window opens and your powershell script will be compiled to an executable.
 
 ### Changes:
-1.0.1.1: target folder dialog added
+1.0.1.1: target folder dialog added (code by Josip Medved, https://www.medo64.com/2011/12/openfolderdialog/)
 
 1.0.0.3: file fields no longer run out
 
