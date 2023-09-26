@@ -1,13 +1,12 @@
-// Win-PS2EXE v1.0.1.1
-// Front end to Powershell-Script-to-EXE-Compiler PS2EXE.ps1: https://github.com/MScholtes/TechNet-Gallery
-// Markus Scholtes, 2021
+// Win-PS2EXE v1.0.1.2
+// Front-end to Powershell-Script-to-EXE-Compiler PS2EXE.ps1: https://github.com/MScholtes/TechNet-Gallery
+// Markus Scholtes, 2023
 //
 // WPF "all in one file" program, no Visual Studio or MSBuild is needed to compile
 // Version for .Net 3.5
 
 /* compile with:
 %WINDIR%\Microsoft.NET\Framework\v3.5\csc.exe /target:winexe Win-PS2EXE.cs /r:"C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\presentationframework.dll" /r:"C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\windowsbase.dll" /r:"C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\presentationcore.dll" /win32icon:MScholtes.ico
-(see https://msdn.microsoft.com/en-us/library/aa970678(v=vs.85).aspx)
 */
 
 using System;
@@ -22,16 +21,16 @@ using System.Xml;
 
 // set attributes
 using System.Reflection;
-[assembly:AssemblyTitle("Graphical front end to PS2EXE.ps1")]
-[assembly:AssemblyDescription("Graphical front end to PS2EXE.ps1")]
+[assembly:AssemblyTitle("Graphical front-end to PS2EXE.ps1")]
+[assembly:AssemblyDescription("Graphical front-end to PS2EXE.ps1")]
 [assembly:AssemblyConfiguration("")]
 [assembly:AssemblyCompany("MS")]
 [assembly:AssemblyProduct("Win-PS2EXE")]
-[assembly:AssemblyCopyright("© Markus Scholtes 2021")]
+[assembly:AssemblyCopyright("© Markus Scholtes 2023")]
 [assembly:AssemblyTrademark("")]
 [assembly:AssemblyCulture("")]
-[assembly:AssemblyVersion("1.0.1.1")]
-[assembly:AssemblyFileVersion("1.0.1.1")]
+[assembly:AssemblyVersion("1.0.1.2")]
+[assembly:AssemblyFileVersion("1.0.1.2")]
 
 namespace WPFApplication
 {
@@ -261,6 +260,13 @@ namespace WPFApplication
 					}
 				}
 
+				// read content of TextBox control
+				TextBox objAdditionalParameters = (TextBox)objWindow.FindName("AdditionParameters");
+				if (objAdditionalParameters.Text != "")
+				{
+					arguments += " " + objAdditionalParameters.Text.Replace("\"", "\\\"");
+				}
+
 				// create powershell process with ps2exe command line
 				ProcessStartInfo psi = new ProcessStartInfo("powershell.exe", arguments + " -verbose; Read-Host \\\"`nPress Enter to leave\\\"\"");
 				// working directory is the directory of the source file
@@ -417,7 +423,7 @@ namespace WPFApplication
 	xmlns:local=""clr-namespace:WPFApplication;assembly=***ASSEMBLY***""
 	xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
 	x:Name=""Window"" Title=""Win-PS2EXE"" WindowStartupLocation=""CenterScreen""
-	Background=""#FFE8E8E8""  Width=""504"" Height=""372"" ShowInTaskbar=""True"">
+	Background=""#FFE8E8E8""  Width=""504"" Height=""394"" ShowInTaskbar=""True"">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width=""auto"" />
@@ -436,9 +442,10 @@ namespace WPFApplication
 			<RowDefinition Height=""auto"" />
 			<RowDefinition Height=""auto"" />
 			<RowDefinition Height=""auto"" />
+			<RowDefinition Height=""auto"" />
 			<RowDefinition Height=""*"" />
 		</Grid.RowDefinitions>
-		<TextBlock Height=""32"" Margin=""0,10,0,0"" FontSize=""16"" Grid.Row=""0"" Grid.Column=""1"" >Win-PS2EXE: Graphical front end to PS2EXE-GUI</TextBlock>
+		<TextBlock Height=""32"" Margin=""0,10,0,0"" FontSize=""16"" Grid.Row=""0"" Grid.Column=""1"" >Win-PS2EXE: Graphical front-end to PS2EXE</TextBlock>
 
 		<Label Grid.Row=""1"" Grid.Column=""0"">Source file: </Label>
 		<TextBox x:Name=""SourceFile"" Height=""18"" Width=""362"" Padding=""-2"" Margin=""0,0,10,0"" AllowDrop=""True"" ToolTip=""Path and name of the source file (the only mandatory field)"" Grid.Row=""1"" Grid.Column=""1"" />
@@ -489,7 +496,10 @@ namespace WPFApplication
 			</ComboBox>
 		</WrapPanel>
 
-		<WrapPanel Margin=""0,5,0,0"" HorizontalAlignment=""Right"" Grid.Row=""11"" Grid.Column=""1"" >
+		<Label Grid.Row=""11"" Grid.Column=""0"">Parameters:</Label>
+		<TextBox x:Name=""AdditionParameters"" Height=""18"" Width=""362"" Padding=""-2"" Margin=""0,0,10,0"" AllowDrop=""False"" ToolTip=""Optional: Additional parameters"" Grid.Row=""11"" Grid.Column=""1"" />
+
+		<WrapPanel Margin=""0,5,0,0"" HorizontalAlignment=""Right"" Grid.Row=""12"" Grid.Column=""1"" >
 			<Button x:Name=""Compile"" Background=""#FFD0D0D0"" Height=""22"" Width=""72"" Margin=""10"" Content=""Compile"" ToolTip=""Compile source file to an executable"" IsDefault=""True"" />
 			<Button x:Name=""Cancel"" Background=""#FFD0D0D0"" Height=""22"" Width=""72"" Margin=""10"" Content=""Cancel"" ToolTip=""End program without action"" IsCancel=""True"" />
 		</WrapPanel>
