@@ -1,4 +1,4 @@
-### AI free repository - artificial intellignece is killing creativity and our nature!
+### AI free repository - artificial intelligence is killing creativity and our nature!
 
 # Win-PS2EXE
 Graphical front end to PS1-to-EXE-compiler PS2EXE.ps1
